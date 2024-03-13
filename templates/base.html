@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+
+</head>
+
+<body>
+
+    <span class="input-group-text ">
+        <h1>Website of Abboskhon</h1>
+    </span>
+
+
+    <ul style="height: 30px;" class="nav nav-tabs justify-content-end">
+        <li class="nav-item">
+            <a style="color: black;" class="nav-link active" aria-current="page" href="{% url 'create' %}">Post+</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'list' %}">Asosiy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Chiqish</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+    </ul>
+
+    <div class="container">
+
+
+        {% if user.is_authenticated %}
+        <h6>{{ user.username }} : xush kelibsiz</h6>
+        
+        {% else %}
+        <p>siz saytga kirmagansiz</p>
+        <a class="btn btn-outline-primary" href="{% url 'login' %}">kirish</a>
+        <a class="btn btn-outline-primary" href="{% url 'register' %}">Ro'yxatdan o'tish</a>
+        {% endif %}
+
+
+        
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+
+</body>
+
+</html>
