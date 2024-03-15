@@ -42,12 +42,16 @@ def create(request):
             # Foydalanuvchi avtorizatsiyadan o'tgan bo'lishini tekshirish
             if request.user.is_authenticated:
                 user = request.user
-                post = Post.objects.create(
-                    author=user,
-                    title=title, 
-                    desc=desc,
-                )
-                return Response({'message': 'Post muvafaqiyatlik yaratildi'}, status=201)
+                if title and desc is not  None:
+                    post = Post.objects.create(
+                        author=user,
+                        title=title, 
+                        desc=desc,
+                    )
+                    serializer=PostSerilaizer(post).data
+                    return Response({'message': 'Post muvafaqiyatlik yaratildi','data':serializer}, status=201)
+                else:
+                    return Response({"message":'malumot kiritilish kerak bolgan qatorlarni toliq kriting'},status=400)
             else:
                 return Response({'message': 'Avtorizatsiyadan o`tgan foydalanuvchi kiritilishi shart'}, status=400)
             
