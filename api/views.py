@@ -5,8 +5,8 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view,permission_classes,authentication_classes
 from main.models import Post
-from .serializers import PostSerilaizer
-from rest_framework .authentication import TokenAuthentication
+from .serializers import *
+from rest_framework .authentication import TokenAuthentication,BasicAuthentication
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 
 from .permissions import IsAdmin
@@ -34,6 +34,7 @@ def list_pk(request):
 
 
 @api_view(['POST'])
+@authentication_classes([BasicAuthentication])
 def create(request):
     if request.method == "POST":
             title = request.data.get('title')

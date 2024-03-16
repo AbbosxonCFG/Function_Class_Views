@@ -7,18 +7,28 @@ from .models import User
 from main.models import Post
 
 
+
+
+
+
 class PostSerilaizer(serializers.ModelSerializer):
+    
+    class Meta:
+        model=Post
+        fields='__all__'
+        
+
+
+
+
+class PostSerilaizerPro(serializers.ModelSerializer):
     class Meta:
         model=Post
         exclude=('author',)
         # fields='__all__'
 
 
-class PostSerilaizerPro(serializers.ModelSerializer):
-    class Meta:
-        model=Post
-        # exclude=('author',)
-        fields='__all__'
+
 
 
 
