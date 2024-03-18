@@ -14,21 +14,35 @@ from .permissions import IsAdmin
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])
-# @authentication_classes([TokenAuthentication])
+@authentication_classes([])
 
 def list_pk(request):
+    username=request.GET.get('username')
     pk=request.GET.get('id')
+
+    if username is not None:
+        post=Post.objects.filter(author__username=username)
+        if post.exists():
+            serializer=PostSerilaizer(post,many=True)
+            return Response(data=serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response('Sahifa mavjud emas',status=404)
+        
     if pk is not None:
         post=Post.objects.filter(id=pk)
         if post.exists():
-            serializer=PostSerilaizer(post[0])
+            serializer=PostSerilaizer(post)
             return Response(serializer.data,status=200)
         else:
-            return Response({'massage':'bunday sahifa mavjud emas'})
-
+            return Response('Bu id da post mavjud emas',status=404)
+        
     post=Post.objects.all().order_by('-id')
     serializer=PostSerilaizer(post,many=True)
     return Response(data=serializer.data,status=200)
+    
+
+
+
     
 
 
