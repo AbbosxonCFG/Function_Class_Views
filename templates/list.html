@@ -20,7 +20,7 @@
         {% for l in list %}
         <h3><li>Author :<a href="{% url 'detail' l.pk %}"><button class="btn btn-outline-primary">{{ l.author.username }}</button></a> </li></h3>
         <li>{{ l.title }}</li>
-        <li>{{ l.desc }}</li>
+        <li>{{ l.desc|slice:":30" }} <a href="{% url 'detail' l.pk %}">davomi...</a></li>
         {% endfor %}
     </ul>
     {% endblock content %}
